@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import axios from 'axios';
+import { FaCloud } from 'react-icons/fa';
+// import {FaBars} from "react-icons/fa";
 
 function App() {
   const [data, setData] = useState({})
   const [location, setLocation] = useState('')
+  const[icon , setIcon] = useState(false)
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`
 
@@ -14,6 +17,10 @@ function App() {
         console.log(response.data)
       })
       setLocation('')
+    }
+
+    if(data.weather[0].id === 800){
+      setIcon(true);
     }
   }
 
@@ -37,6 +44,7 @@ function App() {
           </div>
           <div className="description">
             {data.weather ? <p>{data.weather[0].main}</p> : null}
+            {icon? <FaCloud  style={{size:"30px" ,}}/>:""}
           </div>
         </div>
 
